@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>GA2.Transversals.Mappers</RootNamespace>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Configurations>Debug;Release;Desarrollo</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Parametrization\**" />
+    <Compile Remove="State\**" />
+    <EmbeddedResource Remove="Parametrization\**" />
+    <EmbeddedResource Remove="State\**" />
+    <None Remove="Parametrization\**" />
+    <None Remove="State\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\GA2.Application\Dto\Dto.csproj" />
+    <ProjectReference Include="..\..\GA2.Domain\Entities\Entities.csproj" />
+  </ItemGroup>
+
+</Project>

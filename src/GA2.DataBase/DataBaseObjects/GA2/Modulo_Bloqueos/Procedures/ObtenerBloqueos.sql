@@ -1,0 +1,19 @@
+﻿/*
+Nombre: ObtenerBloqueos
+Descripcion: Obtiene bloqueos
+Elaboro: Camilo Andres Yaya Poveda
+Fecha: Mayo 7 de 2021
+*/
+CREATE PROC[dbo].ObtenerBloqueos
+as
+	SELECT MOD_B_ID,
+	MOD_B_CODIGO,
+	MOD_B_CONCEPTO,
+	MOD_B_DIAS_MORA,
+	MOD_B_REVERSIBLE,
+	MOD_B_ACELERACION_DEUDA,
+	MOD_B_FECHA_MODIFICACION,
+	MOD_B_MODIFICADO_POR,
+	MOD_B_ESTADO
+	FROM MOD_BLOQUEOS
+	WHERE MOD_B_ESTADO = 1

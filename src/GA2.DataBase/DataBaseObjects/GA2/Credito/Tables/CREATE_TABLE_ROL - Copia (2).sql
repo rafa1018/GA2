@@ -1,0 +1,24 @@
+﻿/*
+Nombre: ROL
+Descripcion: Tabla ROL
+Elaboro: Jorge Alberto Parrado Mariño
+Fecha: Mayo 7 de 2021
+*/
+
+IF OBJECT_ID('GA2.dbo.RL_ROL') IS NOT NULL
+BEGIN
+SELECT * FROM GA2.dbo.RL_ROL;
+END
+ELSE
+BEGIN
+CREATE TABLE GA2.dbo.RL_ROL (
+	RL_ID uniqueidentifier NOT NULL,
+	RL_DESCRIPCION nvarchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	RL_MODIFICADOPOR uniqueidentifier NULL,
+	RL_FECHAMODIFICACION datetime NULL,
+	RL_CREADOPOR uniqueidentifier NOT NULL,
+	RL_FECHACREACION datetime NOT NULL,
+	RL_ESTADO bit NOT NULL,
+	CONSTRAINT PK__ROL__3214EC271C2326F9 PRIMARY KEY (RL_ID)
+);
+END

@@ -1,0 +1,33 @@
+﻿-- =============================================
+-- Author:		Oscar Julian Rojas
+-- Fecha: 09/08/2021
+-- Descripcion:	Crear Reglas
+-- =============================================
+CREATE PROCEDURE CrearReglas
+	@RGL_ID uniqueidentifier,
+	@TRA_ID uniqueidentifier,
+	@RGL_NOMBRE nvarchar,
+	@RGL_CUMPLEREGLA bit,
+	@RGL_CREATEDOPOR uniqueidentifier,
+	@RGL_FECHACREACION datetime
+AS
+BEGIN
+	
+	INSERT INTO RGL_REGLAS
+	(RGL_ID, 
+	TRA_ID, 
+	RGL_NOMBRE, 
+	RGL_CUMPLEREGLA, 
+	RGL_CREATEDOPOR, 
+	RGL_FECHACREACION)
+VALUES(@RGL_ID,
+	@TRA_ID,
+	@RGL_NOMBRE,
+	@RGL_CUMPLEREGLA,
+	@RGL_CREATEDOPOR,
+	@RGL_FECHACREACION)
+	
+	SELECT RGL_ID, TRA_ID, RGL_NOMBRE, RGL_CUMPLEREGLA, RGL_CREATEDOPOR, RGL_FECHACREACION, RGL_MODIFICADOPOR, RGL_FECHAMODIFICACION
+	FROM RGL_REGLAS WHERE RGL_ID=@RGL_ID
+
+END;

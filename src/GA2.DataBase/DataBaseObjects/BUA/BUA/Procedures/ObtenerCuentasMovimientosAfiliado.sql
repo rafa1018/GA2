@@ -1,0 +1,16 @@
+CREATE OR ALTER PROCEDURE [dbo].[ObtenerCuentasMovimientosAfiliado] (
+	@Identificacion			VARCHAR(20)
+)
+AS
+BEGIN
+	SELECT CNC_ID, sum(case when cat_tipo_movimiento = 'C' then MVT_VALOR else MVT_VALOR * -1 end) as SALDO, count(*) MOVIMIENTOS
+	FROM MVT_MOVIMIENTO MVT 
+	INNER JOIN CTA_CUENTA CTA 
+	ON CTA.CTA_ID_INTEGRACION = MVT.CTA_ID 
+	INNER JOIN CLI_CLIENTE CLI 
+	ON CLI.CLI_ID = CTA.CLI_ID
+	WHERE CLI.CLI_IDENTIFICACION = @Identificacion
+	GROUP BY CNC_ID 
+	ORDER BY CNC_ID
+END
+

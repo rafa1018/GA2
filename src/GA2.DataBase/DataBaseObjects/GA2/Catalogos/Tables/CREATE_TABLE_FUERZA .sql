@@ -1,0 +1,23 @@
+﻿/*
+Nombre: FUERZA
+Descripcion: Tabla de fuerza
+Elaboro: Jorge Alberto Parrado Mariño
+Fecha: Mayo 7 de 2021
+*/
+
+
+IF OBJECT_ID('GA2.dbo.FRZ_FUERZA') IS NOT NULL
+BEGIN
+SELECT * FROM GA2.dbo.FRZ_FUERZA;
+END
+ELSE
+BEGIN
+CREATE TABLE GA2.dbo.FRZ_FUERZA (
+	FRZ_ID int NOT NULL,
+	FRZ_CODIGO varchar(5) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	FRZ_DESCRIPCION varchar(60) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	FRZ_DIGITO int NOT NULL,
+	FRZ_SOLDADO int NULL,
+	CONSTRAINT PK_FRZ_FUERZA PRIMARY KEY (FRZ_ID)
+);
+END

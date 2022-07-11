@@ -1,0 +1,61 @@
+﻿using System.ComponentModel;
+
+namespace GA2.Infraestructure.Data
+{
+    public enum EnumActividadFlujoParametros
+    {
+        [Description("@AFL_ID")]
+        AFL_ID,
+        [Description("@FLU_ID")]
+        FLU_ID,
+        [Description("@TAC_ID")]
+        TAC_ID,
+        [Description("@AFL_ORDEN")]
+        AFL_ORDEN,
+        [Description("@AFL_TIEMPO")]
+        AFL_TIEMPO,
+        [Description("@AFL_ACTIVIDAD_AUTOMATICA")]
+        AFL_ACTIVIDAD_AUTOMATICA,
+        [Description("@AFL_ACTIVIDAD_PRINCIPAL")]
+        AFL_ACTIVIDAD_PRINCIPAL,
+        [Description("@AFL_PUEDE_DELEGAR")]
+        AFL_PUEDE_DELEGAR,
+        [Description("@AFL_CARGA_ARCHIVOS")]
+        AFL_CARGA_ARCHIVOS,
+        [Description("@AFL_VISUALIZA_ARCHIVOS")]
+        AFL_VISUALIZA_ARCHIVOS,
+        [Description("@AFL_CAPTURA_DATOS_TEC")]
+        AFL_CAPTURA_DATOS_TEC,
+        [Description("@AFL_CAPTURA_DATOS_JUR")]
+        AFL_CAPTURA_DATOS_JUR,
+        [Description("@AFL_CAPTURA_DATOS_FIN")]
+        AFL_CAPTURA_DATOS_FIN,
+        [Description("@AFL_VISUALIZA_DATOS_BAS")]
+        AFL_VISUALIZA_DATOS_BAS,
+        [Description("@AFL_VIISUALIZA_DATOS_GAR")]
+        AFL_VIISUALIZA_DATOS_GAR,
+        [Description("@AFL_VISUALIZA_DATOS_FIN")]
+        AFL_VISUALIZA_DATOS_FIN,
+        [Description("@AFL_GENERA_PDF_RESUMEN")]
+        AFL_GENERA_PDF_RESUMEN,
+        [Description("@AFL_CONSULTA_BURO")]
+        AFL_CONSULTA_BURO,
+        [Description("@AFL_ENVIO_NOTIFICACION")]
+        AFL_ENVIO_NOTIFICACION,
+        [Description("@AFL_ENVIO_NOTIFICACION_VENC")]
+        AFL_ENVIO_NOTIFICACION_VENC,
+        [Description("@AFL_ENVIA_NOTIFICACION_CLIENTE")]
+        AFL_ENVIA_NOTIFICACION_CLIENTE,
+        [Description("@AFL_ESTADO")]
+        AFL_ESTADO,
+        [Description("@AFL_CREADO_POR")]
+        AFL_CREADO_POR,
+        [Description("@AFL_FECHA_CREACION")]
+        AFL_FECHA_CREACION,
+        [Description("@AFL_MODIFICADO_POR")]
+        AFL_MODIFICADO_POR,
+        [Description("@AFL_FECHA_MODIFICACION")]
+        AFL_FECHA_MODIFICACION
+
+    }
+}

@@ -1,0 +1,79 @@
+{
+  "IsEncrypted": false,
+  //"Values": {
+  //  "FUNCTIONS_WORKER_RUNTIME": "<language worker>",
+  //  "AzureWebJobsStorage": "<connection-string>",
+  //  "MyBindingConnection": "<binding-connection-string>",
+  //  "AzureWebJobs.HttpExample.Disabled": "true"
+  //},
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*",
+    "CORSCredentials": false
+  },
+  "ConnectionStrings": {
+    "connectionName": "Server=40.70.60.22,50825\\GA2,50825;Database=GA2;User Id=sa;Password=Ktr-*20221450#;"
+  },
+  "Email": {
+    "UserName": "correo.cajahonor@cajahonor.gov.co",
+    "Password": "Ingreso.123",
+    "Host": "smtp-mail.outlook.com",
+    "Port": "587",
+    "Name": "Correo CajaHonor"
+  },
+  "AppMain": {
+    "Hash": "9c7b4e7e-b705-4e7c-be41-818e9a5cb5ac",
+    "PhraseKey": "AquiDebeIrUnaFraseSegura",
+    "ApplicationName": "IntegracionesKriterion",
+    "Password": "a2a1106d-413a-4d5e-bc60-f1d589170a43",
+    "ApplicationId": "00606f45-d8bc-4034-9341-ab5636a1e854"
+  },
+  "CHKeys": {
+    "UrlCajaHonor": "https://aplicacion.cajahonor.gov.co/REST/KriterionDev/ktrionApi/",
+    "LoginCajaHonor": "api/autenticacion",
+    "GetChGuid": "api/login/get_chguid",
+    "NombreAplicacion": "WebAZTestKTRN",
+    "HashAplicacion": "78769ed48fc98ebd40da6f9532e0cbee",
+    "PhraseKey": "q@4hq=r2S+Ny4AwQ!J#D"
+  },
+  "Apis": {
+    "BUA": "http://40.70.60.22:9005/api/",
+    "GA2": "http://40.70.60.22:9004/api/"
+  },
+  "Apps": {
+    "GA2APP": "http://40.70.60.22:9001",
+    "GA2PAA": "http://40.70.60.22:9002"
+  },
+  "VersionApi": "v1",
+  "JwtOptions": {
+    "Key": "AuthKeyOfDoomThatMustBeAMinimumNumberOfBytes",
+    "Type": "Bearer",
+    "TypeDocumentExtension": ".xml",
+    "Digest": "bb7c1287-3a09-437e-a71c-31f4a9cdd06b"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "IdVision": {
+    "usuarioIDVision": "IDV_CAJAHNR.PROD1",
+    "claveIDVision": "8ps$-90tH2p*9b6",
+    "solucionId": "142"
+  },
+  "Aqm": {
+    "usuarioAqm": "CAJAHNR.79344674",
+    "claveAqm": "h4=7RAMzzp1-]",
+    "solucionIdAqm": "360"
+  },
+  "ConfigsQueue": {
+    "UserQueue": "ktrrabbit",
+    "PasswordQueue": "Krt235689"
+  },
+  "BlobStorage": {
+    "CadenaOne": "DefaultEndpointsProtocol=https;AccountName=stogaredesarrollo4590;AccountKey=bncoGw02i8W/X/AXdbX3W1iYPL4ucDdNC3ZMhvYJhKVqN/CR8NBNgbSN1/TPE+bRGGA1MVmqr8R9htBpXIDtrw==;EndpointSuffix=core.windows.net",
+    "KeyOne": "bncoGw02i8W/X/AXdbX3W1iYPL4ucDdNC3ZMhvYJhKVqN/CR8NBNgbSN1/TPE+bRGGA1MVmqr8R9htBpXIDtrw=="
+  }
+}

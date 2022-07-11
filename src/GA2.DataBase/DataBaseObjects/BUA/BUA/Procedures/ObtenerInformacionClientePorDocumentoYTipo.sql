@@ -1,0 +1,39 @@
+﻿IF OBJECT_ID('ObtenerInformacionClientePorDocumentoYTipo') IS NOT NULL
+BEGIN
+	DROP PROCEDURE ObtenerInformacionClientePorDocumentoYTipo
+END
+GO
+/*
+Nombre: ObtenerInformacionClientePorDocumentoYTipo
+Descripcion: Consultar usuario por documento y tipo documento
+Elaboro: Erwin Pantoja España
+Fecha: Octubre 04 de 2021
+*/
+CREATE PROCEDURE ObtenerInformacionClientePorDocumentoYTipo(
+	@IdTipoIdentificacion					INT = NULL,
+	@Identificacion							VARCHAR(20) = NULL,
+	@IdCliente								INT = NULL
+)
+AS
+BEGIN
+		SELECT	 CC.CLI_ID
+			,CC.TPA_ID
+			,CC.CLI_IDENTIFICACION
+			,CC.CLI_PRIMER_NOMBRE
+			,CC.CLI_SEGUNDO_NOMBRE
+			,CC.CLI_PRIMER_APELLIDO
+			,CC.CLI_SEGUNDO_APELLIDO
+			,DRC.DCE_CORREO CORREO_PERSONAL
+			,CASE WHEN DRT.TPT_ID = 2 THEN DRT.DTL_TELEFONO ELSE '' END NO_CELULAR
+			,CASE WHEN DRT.TPT_ID = 1 THEN DRT.DTL_TELEFONO ELSE '' END TELEFONO_RESIDENCIA
+			,DR.DRC_DIRECCION
+	from CLI_CLIENTE CC
+	INNER JOIN DRC_DIRECCION_CLIENTE DR ON CC.CLI_ID = DR.CLI_ID
+	INNER JOIN DRC_DIRECCION_CORREO DRC ON DR.DRC_ID = DRC.DRC_ID
+	INNER JOIN DRC_DIRECCION_TELEFONO DRT ON DR.DRC_ID = DRT.DRC_ID
+	WHERE CC.TID_ID = CASE WHEN ISNULL(@IdTipoIdentificacion, 0) = 0 THEN CC.TID_ID ELSE @IdTipoIdentificacion END
+		AND CC.CLI_IDENTIFICACION = CASE WHEN ISNULL(@Identificacion, '') = '' THEN CC.CLI_IDENTIFICACION ELSE @Identificacion END 
+		AND CC.CLI_ID = CASE WHEN ISNULL(@IdCliente, 0) = 0 THEN CC.CLI_ID ELSE @IdCliente END 
+END
+
+
