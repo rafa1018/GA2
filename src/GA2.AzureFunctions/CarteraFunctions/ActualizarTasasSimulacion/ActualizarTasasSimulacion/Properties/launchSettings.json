@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ActualizarTasasSimulacion": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --port 7072"
+    }
+  }
+}

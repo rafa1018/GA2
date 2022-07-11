@@ -1,0 +1,44 @@
+﻿/*
+Nombre: CrearParametroTransaccion
+Descripcion: Crea los Parametros de la Transaccion
+Elaboro: Camilo Andres Yaya Poveda
+Fecha: Mayo 7 de 2021
+*/
+CREATE PROCEDURE[dbo].[CrearParametroTransaccion]
+--Add the parameters for the stored procedure here
+	@PARAM_TRANS_CONCEPTO varchar(50),
+	@PARAM_TRANS_CODIGO int,
+	@PARAM_TRANS_PROCESO varchar(50),
+	@PARAM_TRANS_CREADO_POR UNIQUEIDENTIFIER,
+	@PARAM_TRANS_FECHA_CREACION datetime,
+	@PARAM_TRANS_MODIFICADO_POR UNIQUEIDENTIFIER,
+	@PARAM_TRANS_FECHA_MODIFICACION datetime
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+--Insert statements for procedure here
+
+INSERT INTO[dbo].[PARAM_TRANSACCION](
+   PARAM_TRANS_CONCEPTO,
+   PARAM_TRANS_CODIGO,
+   PARAM_TRANS_PROCESO,
+   PARAM_TRANS_CREADO_POR,
+   PARAM_TRANS_FECHA_CREACION,
+   PARAM_TRANS_MODIFICADO_POR,
+   PARAM_TRANS_FECHA_MODIFICACION)
+
+   VALUES(
+   @PARAM_TRANS_CONCEPTO,
+   @PARAM_TRANS_CODIGO,
+   @PARAM_TRANS_PROCESO,
+   @PARAM_TRANS_CREADO_POR,
+   @PARAM_TRANS_FECHA_CREACION,
+   @PARAM_TRANS_MODIFICADO_POR,
+   @PARAM_TRANS_FECHA_MODIFICACION
+   )
+
+   Select * FROM PARAM_TRANSACCION;
+END

@@ -1,0 +1,17 @@
+﻿/*
+Nombre: ObtenerCiudadesPorDepartamento
+Descripcion: Obteniene ciudades por departamento que existen
+Elaboro: Jorge Alberto Parrado Mariño
+Fecha: Mayo 7 de 2021
+*/
+
+CREATE PROC ObtenerCiudadesPorDepartamento (
+	@DPD_ID INT
+) 
+AS 
+	SELECT DPC_ID
+			,DPD_ID
+			,DPC_CODIGO
+			,DPC_NOMBRE 
+	FROM DPC_CIUDAD 
+	WHERE DPD_ID = @DPD_ID

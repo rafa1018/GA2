@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>GA2.Application.Dto</RootNamespace>
+    <Configurations>Debug;Release;Desarrollo</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="CargaNomina\TipoArchivoReportado.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="6.0.0-preview.4.21253.5" />
+    <PackageReference Include="System.Text.Json" Version="6.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\GA2.Domain\Entities\Entities.csproj" />
+    <ProjectReference Include="..\..\GA2.Transversals\Commons\Commons.csproj" />
+  </ItemGroup>
+</Project>

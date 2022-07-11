@@ -1,0 +1,20 @@
+﻿------------------------------------------
+--auhtor Erwin Pantoja España
+-- descripcion: Tabla para tipo de solicitudes
+-- date: 23/09/2021
+------------------------------------------
+
+IF OBJECT_ID('GA2.dbo.TPS_TIPO_SUBMODALIDAD') IS NOT NULL
+BEGIN
+SELECT * FROM GA2.dbo.TPS_TIPO_SUBMODALIDAD;
+END
+ELSE
+BEGIN
+CREATE TABLE GA2.dbo.TPS_TIPO_SUBMODALIDAD (
+	TPS_SUB_ID				INT		NOT NULL,
+	TIM_ID				INT		FOREIGN KEY REFERENCES GA2.dbo.TIM_TIPO_MODALIDAD(TIM_ID),
+	TPS_SUB_DESCRIPCION		VARCHAR(100) NOT NULL,
+	TPS_SUB_ACTIVO			BIT NOT NULL
+	CONSTRAINT PK_TPS_ID	PRIMARY KEY (TPS_SUB_ID)
+);
+END

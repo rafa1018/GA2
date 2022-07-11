@@ -1,0 +1,24 @@
+﻿// GA2.dbo.USERS definition
+
+// Drop table
+
+// DROP TABLE GA2.dbo.USERS GO
+DROP TABLE IF EXISTS GA2.dbo.USERS;
+CREATE TABLE GA2.dbo.USERS (
+	INDEX ID Guid,
+	NAME string,
+	MIDDLENAME string,
+	LASTNAME string,
+	SURNAME string,
+	USERNAME string,
+	PASSWORD string,
+	IDENTIFICATION string,
+	TYPEIDENTIFICATIONID Guid,
+	EMAIL string,
+	ROLID Guid,
+	MODIFIEDBY Guid,
+	MODIFIEDON DateTime,
+	CREATEBY Guid,
+	CREATEON DateTime,
+	STATE bool
+) GO;

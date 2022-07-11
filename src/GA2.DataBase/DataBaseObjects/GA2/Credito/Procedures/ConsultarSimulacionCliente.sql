@@ -1,0 +1,76 @@
+﻿USE [GA2]
+GO
+/****** Object:  StoredProcedure [dbo].[ConsultarSimulacionCliente]    Script Date: 6/07/2021 4:58:41 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+/*
+Nombre: ConsultarSimulacionCliente
+Descripcion: Consulta la Información de la Simulación del Cliente
+Elaboro: German Eduardo Guarnizo
+Fecha: Mayo 3 de 2021
+*/
+ALTER PROCEDURE [dbo].[ConsultarSimulacionCliente] 
+@NUMERO_DOCUMENTO varchar(20)
+
+AS
+BEGIN
+  Declare @ValorCuota decimal
+  Declare @ValorCuotaSinSeg decimal
+  Declare @Plazo int
+
+	 Select Top 1 @ValorCuota = SMD.SMD_CUOTA_TOTAL, @ValorCuotaSinSeg = SMD.SMD_CUOTA_TOTAL - SMD.SMD_SEGURO_VIDA-SMD.SMD_SEGURO_TERREMOTO  
+	   From SMC_SIMULACION_CLIENTE SMC With(NoLock), SMD_SIMULACION_DETALLE SMD With(NoLock)
+     Where  SMC.SMC_ID = SMD.SMC_ID
+	   And  SMC.SMC_NUMERO_DOCUMENTO = @NUMERO_DOCUMENTO
+	   And SMC.SMC_NUMERO_PREAPROBADO!=0
+	   And SMD.SMD_CUOTA=1
+
+	 Select @Plazo = Count(*)
+	   From SMC_SIMULACION_CLIENTE SMC With(NoLock), SMD_SIMULACION_DETALLE SMD With(NoLock)
+     Where  SMC.SMC_ID = SMD.SMC_ID
+	   And  SMC.SMC_NUMERO_DOCUMENTO = @NUMERO_DOCUMENTO
+	   And SMC.SMC_NUMERO_PREAPROBADO!=0
+
+
+	Select SMC.SMC_NUMERO_DOCUMENTO, SMC.SMC_NUMERO_PREAPROBADO, 
+	       Case When SMC_TIPO_VIVIENDA = 'N' Then 'Nueva' Else 'Usada' End as SMC_TIPO_VIVIENDA,
+		   SMC_VALOR_VIVIENDA, SMC_VALOR_PRESTAMO,
+		   Case When SMC_TIPO_ALIVIO = 'X' Then 'Cuota' 
+				When SMC_TIPO_ALIVIO = 'F' Then 'Tasa Frech'
+		   Else  'No Aplica' End as SMC_TIPO_ALIVIO,
+           Case When SMC_TIPO_ABONO = 'M' Then 'Mensual'
+		        When SMC_TIPO_ABONO = 'A' Then 'Anual' Else 'Sin Abono' End as SMC_TIPO_ABONO,
+		   SMC_VALOR_TASA_EA, 
+		   round(SMC_VALOR_TASA_MV*100,2) as SMC_VALOR_TASA_MV, 
+		   round(SMC_VALOR_TASA_MV_FRESH,2) as SMC_VALOR_TASA_MV_FRESH, 
+		   Case When SMC_VIVIENDA_VIS = 'S' Then 'Si' Else 'No' End as SMC_VIVIENDA_VIS,
+		   @ValorCuota as SMC_VALOR_CUOTA, @ValorCuotaSinSeg as SMC_VALOR_CUOTA_SIN_SEG,
+		   @Plazo as SMC_PLAZO,  
+		   SMC_FECHA_SIMULACION, SMC_FECHA_APROBACION,
+		   -- Campos nuevos PDF Simulacion
+		   @Plazo/12 as AÑOS,
+		   DP.SDP_NOMBRES_APELLIDOS as NOMBRE_CLIENTE, SIM.SLS_FECHA_SOLICITUD as FECHA_SOLICITUD,
+	       FRZ.FRZ_DESCRIPCION as FUERZA, CTG.CTG_DESCRIPCION as CATEGORIA, GRD.GRD_DESCRIPCION as GRADO,
+	       substring(DP.SDP_REGIMEN,0,5) as REGIMEN, DPD.DPD_NOMBRE as DEPARTAMENTO,
+	       DPC.DPC_NOMBRE as CIUDAD, DP.SDP_DIRECCION as DIRECCION, DP.SDP_TELEFONO_FIJO as TELEFONO_FIJO,
+	       DP.SDP_TELEFONO_CELULAR as TELEFONO_CELULAR, DP.SDP_E_MAIL as CORREO_ELECTRONICO, 
+		   SIM.TCR_ID as TIPO_CREDITO, 
+		   SMC_TIPO_ABONO as TIPO_ABONO, SMC_TIPO_VIVIENDA as TIPO_VIVIENDA
+	  From SLS_SOLICITUD_SIMULACION SIM With(NoLock), SMC_SIMULACION_CLIENTE SMC With(NoLock),
+	       SDP_SIMULACION_DATOS_PERSONALES DP With(NoLock),
+		   FRZ_FUERZA FRZ With(NoLock),
+	       CTG_CATEGORIA CTG With(NoLock), GRD_GRADO GRD With(NoLock),
+	       DPD_DEPARTAMENTO DPD With(NoLock), DPC_CIUDAD DPC With(NoLock)
+	 Where SIM.SLS_ID = DP.SLS_ID
+	   AND DP.SDP_NUMERO_DOCUMENTO = @NUMERO_DOCUMENTO
+	   AND SIM.SLS_NUMERO_PREAPROBADO != 0
+	   And SIM.SLS_NUMERO_PREAPROBADO = SMC.SMC_NUMERO_PREAPROBADO
+	   And DP.FRZ_ID=FRZ.FRZ_ID
+	   And DP.CTG_ID=CTG.CTG_ID
+       And DP.GRD_ID=GRD.GRD_ID
+       And DP.DPD_ID = DPD.DPD_ID
+       And DP.DPC_ID = DPC.DPC_ID
+
+END

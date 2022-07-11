@@ -1,0 +1,13 @@
+﻿
+IF OBJECT_ID('EliminarTerceroSolicitud', 'P') > 0
+BEGIN
+	DROP PROCEDURE EliminarTerceroSolicitud
+END
+GO
+CREATE PROCEDURE EliminarTerceroSolicitud
+	@SOL_ID_FK				UNIQUEIDENTIFIER
+AS
+BEGIN
+	DELETE FROM TER_TERCERO
+	WHERE SOL_ID_FK = @SOL_ID_FK 
+END

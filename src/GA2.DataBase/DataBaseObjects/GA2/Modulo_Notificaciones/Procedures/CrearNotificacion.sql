@@ -1,0 +1,40 @@
+﻿/*
+Nombre: CrearNotificacion
+Descripcion: Crear el Notificacion
+Elaboro: Camilo Andres Yaya Poveda
+Fecha: Mayo 14 de 2021
+*/
+CREATE PROCEDURE[dbo].CrearNotificacion
+@ID uniqueidentifier,
+@MENSAJE nvarchar(2000),
+@RECEPTOR uniqueidentifier ,
+@TIPO nvarchar(50),
+@VISTO bit,
+@EMISOR uniqueidentifier ,
+@FECHA_CREACION datetime,
+@ESTADO bit
+AS 
+BEGIN
+INSERT INTO MOD_NOTIFICACIONES
+(MOD_N_ID,
+MOD_N_MENSAJE,
+MOD_N_RECEPTOR,
+MOD_N_TIPO,
+MOD_N_VISTO,
+MOD_N_EMISOR,
+MOD_N_FECHA_CREACION,
+MOD_N_ESTADO) 
+VALUES(
+@ID,
+@MENSAJE,
+@RECEPTOR,
+@TIPO,
+@VISTO,
+@EMISOR,
+@FECHA_CREACION,
+@ESTADO)
+
+SELECT MOD_N_ID, MOD_N_MENSAJE, MOD_N_RECEPTOR, MOD_N_TIPO, MOD_N_VISTO, MOD_N_EMISOR, MOD_N_FECHA_CREACION, MOD_N_ESTADO
+FROM MOD_NOTIFICACIONES WHERE MOD_N_ID = @ID
+
+END

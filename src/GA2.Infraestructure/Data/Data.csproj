@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>GA2.Infraestructure.Data</RootNamespace>
+    <Configurations>Debug;Release;Desarrollo</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\GA2.Application\Dto\Dto.csproj" />
+    <ProjectReference Include="..\..\GA2.Domain\Entities\Entities.csproj" />
+  </ItemGroup>
+</Project>

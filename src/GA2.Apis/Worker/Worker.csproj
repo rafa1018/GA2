@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-Worker-9C75F150-4D18-4D47-817A-D9D999F03E69</UserSecretsId>
+    <Configurations>Debug;Release;Desarrollo</Configurations>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<EnvironmentName>Production</EnvironmentName>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Desarrollo|AnyCPU'">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<EnvironmentName>Desarrollo</EnvironmentName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<EnvironmentName>Development</EnvironmentName>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\GA2.Domain\Core\Core.csproj" />
+    <ProjectReference Include="..\..\GA2.Infraestructure\Repositories\Repositories.csproj" />
+    <ProjectReference Include="..\..\GA2.Transversals\Mappers\Mappers.csproj" />
+  </ItemGroup>
+</Project>

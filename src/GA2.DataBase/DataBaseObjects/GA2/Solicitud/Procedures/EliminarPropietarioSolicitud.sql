@@ -1,0 +1,11 @@
+﻿IF OBJECT_ID('EliminarPropietarioSolicitud', 'P') > 0
+BEGIN
+	DROP PROCEDURE EliminarPropietarioSolicitud
+END
+GO
+CREATE PROCEDURE EliminarPropietarioSolicitud
+	@SOL_ID_FK				UNIQUEIDENTIFIER
+AS
+BEGIN
+	DELETE FROM PRP_PROPIETARIO  WHERE SOL_ID_FK = @SOL_ID_FK
+END

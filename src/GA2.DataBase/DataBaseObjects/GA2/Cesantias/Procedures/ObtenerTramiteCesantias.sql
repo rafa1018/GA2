@@ -1,0 +1,154 @@
+﻿IF OBJECT_ID('ObtenerTramiteCesantias') IS NOT NULL
+BEGIN
+	DROP PROCEDURE ObtenerTramiteCesantias
+END
+GO
+/*
+Nombre: ObtenerTramiteCesantias
+Descripcion: Consulta las Solicitudes en Tramite de cesantias por usuario
+Elaboro: Erwin Pantoja España
+Fecha: Septiembre 27 de 2021
+*/
+CREATE PROCEDURE ObtenerTramiteCesantias
+	@CLI_ID			INT					= NULL,
+	@TPS_SUB_ID		UNIQUEIDENTIFIER,
+	@SOL_ID			UNIQUEIDENTIFIER	= NULL
+AS
+BEGIN
+
+	--SELECT TP.TCR_DESCRIPCION as TIPO_CREDITO, SL.SOC_FECHA_SOLICITUD FECHA_SOLICITUD, 
+	--	   SL.SOC_NUMERO_SOLICITUD as NUMERO_SOLICITUD,
+	--	   SL.CLI_IDENTIFICACION as CEDULA_CLIENTE, 
+	--	   BAS.SOB_PRIMER_NOMBRE+' '+BAS.SOB_SEGUNDO_NOMBRE+' '+BAS.SOB_PRIMER_APELLIDO+' '+BAS.SOB_SEGUNDO_APELLIDO as NOMBRE_CLIENTE,
+	--	   TAC.TAC_DESCRIPCION as ACTIVIDAD, AFL.AFL_ORDEN as ORDEN, ESA_DESCRIPCION AS ESTADO_ACTIVIDAD,
+	--	   ---------------------------------------------------------------------------------------
+	--	   --- Campos ocultos
+	--	   ---------------------------------------------------------------------------------------
+	--	   -- Datos Solicitud
+	--	   SL.SOC_ID as ID_SOLICITUD, SL.SLS_ID  as ID_SIMULACION, 
+	--	   ATF.AFL_ID as ID_ACTIVIDAD_FLUJO, TRM.TRS_ID as ID_TRAMITE,
+	--	   ATF.ACT_ESTADO AS ID_ESTADO_ACTIVIDAD, ATF.ID_USERS as USUARIO_RESPONSABLE,
+	--	   SL.TCR_ID as ID_TIPO_CREDITO, SL.SOC_CONVENIO_ASEGURADORA as CONVENIO_ASEGURADORA,
+	--	   SL.ASE_ID as CODIGO_ASEGURADORA, 
+	--	   0 AS ASEGURADORA, --ASG.ASE_RAZON_SOCIAL as ASEGURADORA,
+	--	   -- Datos Basicos
+	--	   BAS.SOB_CELULAR as NO_CELULAR, BAS.SOB_CORREO_PERSONAL as CORREO_PERSONAL, 
+	--	   BAS.SOB_DIRECCION_RESIDENCIA as DIRECCION_RESIDENCIA, BAS.SOB_TELEFONO_RESIDENCIA as TELEFONO_RESIDENCIA,
+	--	   -- Datos Producto
+	--	   PRD.SOP_TIPO_INMUEBLE as TIPO_INMUEBLE,  TV.TVV_DESCRIPCION AS TIPO_VIVIENDA,
+	--	   PRD.SOP_VALOR_INMUEBLE as VALOR_INMUEBLE, PRD.SOP_VALOR_CREDITO as VALOR_CREDITO, 
+	--	   PRD.SOP_PLAZO_FINANCIACION as PLAZO_FINANCIEACION, PRD.SOP_PORC_FINANCIACION as PORC_FINANCIACION,
+	--	   -- Parametros Actividad
+	--	   AFL.AFL_CAPTURA_DATOS_TEC AS CAPTURA_DATOS, AFL.AFL_ACTIVIDAD_PRINCIPAL AS ACTIVIDAD_PRINCIPAL,
+	--	   AFL.AFL_CARGA_ARCHIVOS AS CARGA_ARCHIVO, AFL.AFL_VISUALIZA_ARCHIVOS AS VISUALIZA_ARCHIVOS,
+	--	   AFL.AFL_PUEDE_DELEGAR AS PUEDE_DELEGAR, AFL.AFL_ENVIO_NOTIFICACION AS ENVIO_NITICACION, 
+	--	   AFL.AFL_ENVIO_NOTIFICACION_VENC AS ENVIO_NOTICIACION_VENC, 
+	--	   AFL.AFL_GENERA_PDF_RESUMEN AS GENERA_PDF_RESUMEN, 
+	--	   AFL.AFL_CONSULTA_BURO AS CONSULTA_BURO,
+	--	   AFL.AFL_CONSULTA_RIESGO AS CONSULTA_RIESGO,  AFL.AFL_USUARIO_RIESGO AS USUARIO_RIESGO,
+	--	   AFL.AFL_GENERA_DOCUMENTOS_LEG AS GENERA_DOC_LEGALIZACION,
+	--	   -- Cmapos validacion seguro
+	--	   Case When SL.SOC_CONVENIO_ASEGURADORA_HOGAR = 'S' Then  20 Else 0 End as DOC_SEGURO_TERREMOTO, 
+	--	   Case When SL.SOC_CONVENIO_ASEGURADORA = 'S' Then 21 Else 0 End as DOC_SEGURO_VIDA,
+	--	   -- Color Grilla
+	--	   CL.CLG_ESTILO_COLOR as COLOR_GRILLA,
+	--	   '['+
+	--			Case When AFL.AFL_VISUALIZA_DATOS_BAS = 'S' Then 'DatosBasicos' Else '' End+
+	--			Case When AFL.AFL_VIISUALIZA_DATOS_GAR = 'S' Then ',DatosGarantia' Else '' End+
+	--			Case When AFL.AFL_VISUALIZA_DATOS_FIN = 'S' Then ',DatosFinancieros,DatosSimulación' Else '' End+
+	--			Case When AFL.AFL_VISUALIZA_ARCHIVOS = 'S' Then ',VisualizaArchivos' Else '' End+
+	--			Case When AFL.AFL_CARGA_ARCHIVOS = 'S' Then ',CargaArchivos' Else '' End+
+	--			Case When AFL.AFL_CAPTURA_DATOS_TEC = 'S' Then ',AnalisisTecnico' Else '' End+
+	--			Case When AFL.AFL_CAPTURA_DATOS_JUR = 'S' Then ',AnalisisJuridico' Else '' End+
+	--			Case When AFL.AFL_CAPTURA_DATOS_FIN = 'S' Then ',AnalisisFinanciero' Else '' End+
+	--			Case When AFL.AFL_CAPTURA_DATOS_SEG = 'S' Then ',DatosSeguro' Else '' End+
+	--			Case When AFL.AFL_GENERA_DOCUMENTOS_LEG = 'S' Then ',DatosLegalizacion' Else '' End+
+	--			Case When AFL.AFL_CAPTURA_DATOS_DES = 'S' Then ',DatosDesembolso' Else '' End+
+	--		   ',VisualizaObservaciones]' as PANELES
+	--  From SOC_SOLICITUD_CREDITO SL With(NoLock) 
+	--		LEFT JOIN ASE_ASEGURADORAS ASG ON ASG.ASE_ID = SL.ASE_ID 
+	--		INNER JOIN SOB_SOLICITUD_INF_BASICA BAS With(NoLock) ON  SL.SOC_ID = BAS.SOC_ID
+	--		INNER JOIN SOP_SOLICITUD_PRODUCTO PRD With(NoLock) ON SL.SOC_ID = PRD.SOC_ID
+	--		INNER JOIN TVV_TIPO_VIVIENDA TV With(NoLock) ON PRD.TVV_ID = TV.TVV_ID
+	--		INNER JOIN TCR_TIPO_CREDITO TP With(NoLock) ON SL.TCR_ID = TP.TCR_ID
+	--		INNER JOIN TRS_TRAMITE_SOLICITUD TRM With(NoLock) ON SL.SOC_ID = TRM.SOC_ID
+	--		INNER JOIN ACT_ACTIVIDAD_TRAMITE_SOLIC ATF With(NoLock) ON TRM.TRS_ID = ATF.TRS_ID
+	--		INNER JOIN USR_USERS USR With(NoLock) ON ATF.ID_USERS = USR.USR_ID
+	--		INNER JOIN ESA_ESTADO_ACTIVIDAD ESA With(NoLock) ON ATF.ACT_ESTADO = ESA.ESA_ID
+	--		INNER JOIN RL_ROL RL With(NoLock) ON USR.RL_ID = RL.RL_ID
+	--		INNER JOIN AFL_ACTIVIDAD_FLUJO AFL With(NoLock) ON ATF.AFL_ID = AFL.AFL_ID
+	--		INNER JOIN TAC_TIPO_ACTIVIDAD TAC With(NoLock) ON AFL.TAC_ID = TAC.TAC_ID
+	--		INNER JOIN CLG_COLOR_GRILLA CL With(NoLock) ON CL.CLG_ID = 1
+	--WHERE ATF.ID_USERS = @USUARIO_ID
+	--  AND (@TCR_ID = 0 OR SL.TCR_ID = @TCR_ID)
+	--  AND (@ESTADO_ACT = 0 OR ATF.ACT_ESTADO = @ESTADO_ACT)
+	--  AND (@CLI_IDENTIFICACION = '0' OR SL.CLI_IDENTIFICACION = @CLI_IDENTIFICACION)
+	--  AND (@FECHA_SOL = '0' OR CONVERT(varchar(10),SL.SOC_FECHA_SOLICITUD,111) = @FECHA_SOL)
+	--ORDER BY ATF.ACT_FECHA_CREACION
+
+
+	SELECT '' as TIPO_CREDITO, 
+		   GETDATE() as FECHA_SOLICITUD, 
+		   1 as NUMERO_SOLICITUD,
+		   1234 as CEDULA_CLIENTE, 
+		   '' as NOMBRE_CLIENTE,
+		   '' as ACTIVIDAD, 
+		   3 as ORDEN, 
+		   '' AS ESTADO_ACTIVIDAD,
+		   SOL_SOLICITUD.CLI_ID,
+		   ---------------------------------------------------------------------------------------
+		   --- Campos ocultos
+		   ---------------------------------------------------------------------------------------
+		   -- Datos Solicitud
+		   SOL_SOLICITUD.CTA_ID as ID_CUENTA, 
+		   NEWID() as ID_SIMULACION, 
+		   2 as ID_ACTIVIDAD_FLUJO, 
+		   NEWID() as ID_TRAMITE,
+		   1 AS ID_ESTADO_ACTIVIDAD, 
+		   NEWID() as USUARIO_RESPONSABLE,
+		   1 as ID_TIPO_CREDITO, 
+		   '' as CONVENIO_ASEGURADORA,
+		   2 as CODIGO_ASEGURADORA, 
+		   0 AS ASEGURADORA, --ASG.ASE_RAZON_SOCIAL as ASEGURADORA,
+		   -- Datos Basicos
+		   '' as NO_CELULAR, 
+		   '' as CORREO_PERSONAL, 
+		   '' as DIRECCION_RESIDENCIA, 
+		   '' as TELEFONO_RESIDENCIA,
+		   -- Datos Producto
+		   '' as TIPO_INMUEBLE,  
+		   '' AS TIPO_VIVIENDA,
+		   1 as VALOR_INMUEBLE, 
+		   1 as VALOR_CREDITO, 
+		   2 as PLAZO_FINANCIEACION, 
+		   5 as PORC_FINANCIACION,
+		   -- Parametros Actividad
+		   '' AS CAPTURA_DATOS, 
+		   '' AS ACTIVIDAD_PRINCIPAL,
+		   '' AS CARGA_ARCHIVO, 
+		   '' AS VISUALIZA_ARCHIVOS,
+		   '' AS PUEDE_DELEGAR, 
+		   '' AS ENVIO_NITICACION, 
+		   '' AS ENVIO_NOTICIACION_VENC, 
+		   '' AS GENERA_PDF_RESUMEN, 
+		   '' AS CONSULTA_BURO,
+		   '' AS CONSULTA_RIESGO,  
+		   NEWID() AS USUARIO_RIESGO,
+		   '' AS GENERA_DOC_LEGALIZACION,
+		   -- Cmapos validacion seguro
+		   20 as DOC_SEGURO_TERREMOTO, 
+		   21 as DOC_SEGURO_VIDA,
+		   -- Color Grilla
+		   '' as COLOR_GRILLA,
+		   /*
+		   '[DatosBasicos,DatosGarantia,DatosFinancieros,DatosSimulación,VisualizaArchivos,CargaArchivos,AnalisisTecnico,AnalisisJuridico' +
+		   ',AnalisisFinanciero,DatosSeguro,DatosLegalizacion,DatosDesembolso,VisualizaObservaciones]'  as PANELES
+		   */
+
+		   '[DatosBasicos]'  as PANELES
+		   FROM SOL_SOLICITUD 
+		   WHERE SOL_SOLICITUD.CLI_ID = CASE WHEN @CLI_ID IS NOT NULL THEN @CLI_ID ELSE SOL_SOLICITUD.CLI_ID END
+		   AND SOL_SOLICITUD.TPS_SUB_ID = @TPS_SUB_ID
+		   AND SOL_SOLICITUD.SOL_ID = CASE WHEN @SOL_ID IS NOT NULL THEN @SOL_ID ELSE SOL_SOLICITUD.SOL_ID END
+END
+

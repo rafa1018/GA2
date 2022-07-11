@@ -1,0 +1,49 @@
+﻿-- =============================================
+-- Author:		Oscar Julian Rojas
+-- Fecha: 09/08/2021
+-- Descripcion:	crear Tarea
+-- =============================================
+create PROCEDURE CrearTarea
+	@TRA_ID uniqueidentifier, 
+	@PCS_ID uniqueidentifier, 
+	@TRA_NOMBRE nvarchar, 
+	@TRA_FECHAINICIO datetime, 
+	@TRA_FECHAFIN datetime, 
+	@TRA_TAREA_CIERRE datetime, 
+	@TRA_ACTIVA bit, 
+	@RL_ID_RESPONSABLE uniqueidentifier, 
+	@TRA_CREATEDOPOR  uniqueidentifier, 
+	@TRA_FECHACREACION datetime
+AS
+BEGIN
+	
+	INSERT INTO TRA_TAREA(
+	TRA_ID, 
+	PCS_ID, 
+	TRA_NOMBRE, 
+	TRA_FECHAINICIO, 
+	TRA_FECHAFIN, 
+	TRA_TAREA_CIERRE, 
+	TRA_ACTIVA, 
+	RL_ID_RESPONSABLE, 
+	TRA_CREATEDOPOR, 
+	TRA_FECHACREACION)
+VALUES(
+	@TRA_ID, 
+	@PCS_ID, 
+	@TRA_NOMBRE, 
+	@TRA_FECHAINICIO, 
+	@TRA_FECHAFIN, 
+	@TRA_TAREA_CIERRE, 
+	@TRA_ACTIVA, 
+	@RL_ID_RESPONSABLE, 
+	@TRA_CREATEDOPOR, 
+	@TRA_FECHACREACION)
+	
+	SELECT TRA_ID, PCS_ID, TRA_NOMBRE, TRA_FECHAINICIO, TRA_FECHAFIN, TRA_TAREA_CIERRE, TRA_ACTIVA, RL_ID_RESPONSABLE, TRA_CREATEDOPOR, TRA_FECHACREACION, TRA_MODIFICADOPOR, TRA_FECHAMODIFICACION
+	FROM TRA_TAREA WHERE TRA_ID=@TRA_ID
+
+
+	
+	
+END;

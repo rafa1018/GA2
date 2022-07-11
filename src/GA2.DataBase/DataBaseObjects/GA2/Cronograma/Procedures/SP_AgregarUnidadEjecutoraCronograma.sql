@@ -1,0 +1,35 @@
+CREATE OR ALTER PROCEDURE [dbo].[AgregarUnidadEjecutoraCronograma] (
+		@UEJ_ID						INT
+		,@CRO_FECHA_REPORTE			DATE
+		,@CRO_FECHA_INICIO			DATE
+		,@CRO_FECHA_FIN				DATE
+		,@CRO_PERIODO				VARCHAR(10)
+		,@FRT_ID					INT
+		,@MDE_ID					INT
+)
+AS
+BEGIN
+	INSERT INTO CRO_CRONOGRAMANOVEDAD(
+		UEJ_ID,
+		CRO_FECHA_REPORTE,
+		CRO_FECHA_INICIO,
+		CRO_FECHA_FIN,
+		CRO_PERIODO,
+		FRT_ID,
+		MDE_ID)
+	VALUES (
+		@UEJ_ID			
+		,@CRO_FECHA_REPORTE
+		,@CRO_FECHA_INICIO
+		,@CRO_FECHA_FIN
+		,@CRO_PERIODO
+		,@FRT_ID
+		,@MDE_ID)		
+
+	EXEC ObtenerUnidadesEjecutorasCronograma
+END 	
+
+
+
+
+

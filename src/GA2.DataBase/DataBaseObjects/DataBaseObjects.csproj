@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Configurations>Debug;Release;Desarrollo</Configurations>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="GA2\Catalogos\Procedures\ObtenerActividadesEconomicas.sql" />
+		<None Remove="GA2\Catalogos\Procedures\ObtenerCatalogos.sql" />
+		<None Remove="GA2\Catalogos\Procedures\ObtenerCategorias.sql" />
+		<None Remove="GA2\Catalogos\Procedures\ObtenerCiudades.sql" />
+		<None Remove="GA2\Catalogos\Procedures\ObtenerCiudadesPorDepartamento.sq;" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Identity\Views\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="GA2\Catalogos\Procedures\ObtenerActividadesEconomicas.sql" />
+		<Resource Include="GA2\Catalogos\Procedures\ObtenerCatalogos.sql" />
+		<Resource Include="GA2\Catalogos\Procedures\ObtenerCategorias.sql" />
+		<Resource Include="GA2\Catalogos\Procedures\ObtenerCiudades.sql" />
+		<Resource Include="GA2\Catalogos\Procedures\ObtenerCiudadesPorDepartamento.sq" />
+	</ItemGroup>
+
+</Project>

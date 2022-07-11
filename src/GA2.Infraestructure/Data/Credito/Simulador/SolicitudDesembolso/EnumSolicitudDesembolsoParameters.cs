@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+
+namespace GA2.Infraestructure.Data
+{
+    public enum EnumSolicitudDesembolsoParameters
+    {
+         
+        [Description("@SID_ID")]
+        IdSolicitudDesembolso,
+         
+        [Description("@SOC_ID")]
+        IdSolicitudCredito,
+         
+        [Description("@NUMERO_SOLICITUD")]
+        NumeroSolicitud,
+         
+        [Description("@TIPO_CREDITO")]
+        TipoCredito,
+         
+        [Description("@CLI_IDENTIFICACION")]
+        DocumentoCliente,
+         
+        [Description("@NOMBRE_CLIENTE")]
+        NombreCliente,
+         
+        [Description("@FRC_ID")]
+        IdFuenteRecursos,
+         
+        [Description("@FUENTE_RECURSOS")]
+        FuenteRecursos,
+         
+        [Description("@SID_FECHA_DESEMBOLSO")]
+        FechaDesembolso,
+         
+        [Description("@SID_VALOR_DESEMBOLSO")]
+        ValorDesembolso,
+         
+        [Description("@APLICADO")]
+        Aplicado,
+         
+        [Description("@FECHA_APLICACION")]
+        FechaAplicacion,
+         
+        [Description("@APLICADO_POR")]
+        AplicadoPor,
+         
+        [Description("@ANULADO")]
+        Anulado,
+         
+        [Description("@FECHA_ANULACION")]
+        FechaAnulacion,
+         
+        [Description("@OBSERVACION_ANULACION")]
+        ObservacionAnulacion,
+         
+        [Description("@ANULADO_POR")]
+        AnuladoPor,
+         
+        [Description("@CAUSA_ANULACION")]
+        CausaAnulacion,
+         
+        [Description("@SID_CREADO_POR")]
+        CreadoPor,
+         
+        [Description("@SID_FECHA_CREACION")]
+        FechaCreacion,
+         
+        [Description("@ACTUALIZADO_PRO")]
+        ActualizadoPor,
+         
+        [Description("@FECHA_ACTUALIZACION")]
+        FechaActualizacion,
+    }
+}
